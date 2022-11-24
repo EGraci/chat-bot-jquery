@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot</title>
+</head>
+<body>
+    
+    <input type="text" name="message" id="message" >
+    <button id="kirim">Kirim</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        function chatBot(chat){
+            let kata = chat.split(" ");
+            return kata[1];
+        }
+        $( document ).ready(function() {
+            console.log(chatBot("ready go go"));
+            $.getJSON("file:///D:/HTML/ChatBot/jawaban.json", function(data){
+                console.log(data.jawaban    ); 
+            }).fail(function(){
+                console.log("An error has occurred.");
+            });
+        });
+    </script>
+</body>
+</html>

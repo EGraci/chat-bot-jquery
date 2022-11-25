@@ -6,12 +6,12 @@
     },
     {
         "id": "2",
-        "keyword": "lokasi,alamat,kantor",
+        "keyword": "lokasi alamat kantor",
         "jawaban": "tempat kami berada di"
     },
     {
         "id": "3",
-        "keyword": "jam,operasional,buka,tutup",
+        "keyword": "jam operasional buka tutup",
         "jawaban": "kami buka dari jam sekian hingga sekian"
     }
 ]

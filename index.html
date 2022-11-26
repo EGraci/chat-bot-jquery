@@ -10,53 +10,41 @@
     
     <input type="text" name="message" id="message" >
     <button id="kirim">Kirim</button>
-
+    <div id="jawaban"></div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        function chatBot(chat){
-            let kata = chat.split(" ");
-            let jawaban = "";
-            let jumlah = 0;
-            
-                // get josn external
-                $.getJSON("https://raw.githubusercontent.com/EGraci/chat-bot-jquery/main/jawaban.json", 
-                    function(data) {
-                        $.each(data, function (key, value) {
-                            let tmp = 0;
-                            for(let i = 0; i < kata.length; i++ ){
-                                if(value.keyword.includes(kata[i])){
-                                    tmp += 1;
-                                }
-                            }
-                            
-                            if(jumlah < tmp){
-                                jumlah = tmp;
-                                jawaban = value.jawaban;
-                            }
-                            console.log(jumlah + " " + jawaban);
-                        });
-                    }
-                );
-            console.log(jumlah + " == " + jawaban);
-            return jawaban;
-        }
         $( document ).ready(function() {
-            let jawaban = chatBot("lokasi kantornya ada dimana");
-            console.log(jawaban);
-            // for(let i = 0; i < jawaban.length; i++ ){
-            //     if(jawaban[i] == "lokasi"){
-            //         console.log("Ini ada Jawaban");
-            //         continue;
-            //     }
-            //     console.log(jawaban[i]);
-            // }
+            $('#kirim').click(function(){
+                // input pesan user
+                let chat = $('#message').val();
+                let kata = chat.split(" ");
+                    // get josn external
+                    $.getJSON("https://raw.githubusercontent.com/EGraci/chat-bot-jquery/main/jawaban.json", 
+                        function(data) {
+                            let jawaban = "";
+                            let jumlah = 0;
 
-            let keyword = [];
-            // console.log(keyword.length);
-
-            // for(let i = 0; i < keyword.length; i++){
-            //     console.log(keyword[i]);
-            // }
+                            $.each(data, function (key, value) {
+                                let tmp = 0;
+                                for(let i = 0; i < kata.length; i++ ){
+                                    if(value.keyword.includes(kata[i])){
+                                        tmp += 1;
+                                    }
+                                }
+                                
+                                if(jumlah < tmp){
+                                    jumlah = tmp;
+                                    jawaban = value.jawaban;
+                                }
+                            });
+                            if(jawaban == ""){
+                                jawaban = "Silahkan hubungi admin kami +62 .....";
+                            }
+                            // pesan bot
+                            $('#jawaban').append(`<p>${jawaban}</p>`);;
+                        }
+                    );
+            });
         });
         
     </script>

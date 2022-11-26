@@ -13,29 +13,52 @@
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script>
-        $( document ).ready(function() {
-            function chatBot(chat){
-                let kata = chat.split(" ");
-                
-                return kata;
-            }
-            // console.log(chatBot("ready go go"));
-            let keyword = [];
-            // get josn external
-            $.getJSON("https://raw.githubusercontent.com/EGraci/chat-bot-jquery/main/jawaban.json", 
+        function chatBot(chat){
+            let kata = chat.split(" ");
+            let jawaban = "";
+            let jumlah = 0;
+            
+                // get josn external
+                $.getJSON("https://raw.githubusercontent.com/EGraci/chat-bot-jquery/main/jawaban.json", 
                     function(data) {
                         $.each(data, function (key, value) {
-                            console.log(value.keyword);
+                            let tmp = 0;
+                            for(let i = 0; i < kata.length; i++ ){
+                                if(value.keyword.includes(kata[i])){
+                                    tmp += 1;
+                                }
+                            }
+                            
+                            if(jumlah < tmp){
+                                jumlah = tmp;
+                                jawaban = value.jawaban;
+                            }
+                            console.log(jumlah + " " + jawaban);
                         });
-                        // keyword.push(data);
                     }
                 );
+            console.log(jumlah + " == " + jawaban);
+            return jawaban;
+        }
+        $( document ).ready(function() {
+            let jawaban = chatBot("lokasi kantornya ada dimana");
+            console.log(jawaban);
+            // for(let i = 0; i < jawaban.length; i++ ){
+            //     if(jawaban[i] == "lokasi"){
+            //         console.log("Ini ada Jawaban");
+            //         continue;
+            //     }
+            //     console.log(jawaban[i]);
+            // }
+
+            let keyword = [];
             // console.log(keyword.length);
 
             // for(let i = 0; i < keyword.length; i++){
             //     console.log(keyword[i]);
             // }
         });
+        
     </script>
 </body>
 </html>
